@@ -163,7 +163,7 @@ describe "Academia de Magia" {
  		// TODO: Verificar que la pelota NO está guardada en la academia
  		assert.notThat(academia.tiene(pelota))
  		// TODO: Verificar que la escoba está guardada en la academia
- 		assert.notThat(academia.tiene(escoba))
+ 		assert.that(academia.tiene(escoba))
  		// TODO: Verificar que la pava está guardada en la academia
  		assert.that(academia.tiene(pava))
  		// TODO: Verificar que la lámpara está guardada en la academia

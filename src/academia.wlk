@@ -110,7 +110,7 @@ class Armario inherits Mueble {
 
 ///ACADEMIAS
 class Academia {
-	const property muebles = #{}
+	var property muebles = #{}
 	
 	method tiene(cosa) {
 		return muebles.any( { mueble => mueble.tiene(cosa) } )
@@ -169,6 +169,6 @@ class Academia {
 	}
 	
 	method cosasMenosUtilesNoMagicas(){
-		return self.cosasMenosUtiles().filter( { cosa=> not cosa.esMagica() } )
+		return self.cosasMenosUtiles().filter( { cosa => not cosa.esMagica() } )
 	}
 }
