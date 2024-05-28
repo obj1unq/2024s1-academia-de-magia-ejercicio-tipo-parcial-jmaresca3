@@ -8,20 +8,20 @@ describe "Academia de Magia" {
 	 * se debe remover la declaración de la constante y el comentario que se sugiere la instanciación.
 	 */
 	// TODO: construir/obtener una cosa con volumen = 3, marca = cuchuflito, no es mágica ni una reliquia
-	const pelota = new Cosa(volumen=3,marca="cuchuflito",esMagica=false,esReliquia=false)
+	const pelota = new Cosa(volumen=3,marca=cuchuflito,esMagica=false,esReliquia=false)
 	// TODO: construir/obtener una cosa con volumen = 4, marca = acme, es mágica y una reliquia 
-	const escoba = new Cosa(volumen=4,marca="acme",esMagica=true,esReliquia=true) 
+	const escoba = new Cosa(volumen=4,marca=acme,esMagica=true,esReliquia=true) 
 	// TODO: construir/obtener una cosa con volumen = 1, marca = fenix, es mágica pero no es una reliquia
-	const varita = new Cosa(volumen=1,marca="fenix",esMagica=true,esReliquia=false)
+	const varita = new Cosa(volumen=1,marca=fenix,esMagica=true,esReliquia=false)
 	// TODO: construir/obtener una cosa con volumen = 2, marca = acme, no es magica pero sí una reliquia
-	const pava = new Cosa(volumen=2,marca="acme",esMagica=false,esReliquia=true)
+	const pava = new Cosa(volumen=2,marca=acme,esMagica=false,esReliquia=true)
 	// TODO: construir/obtener una cosa con volumen = 3, marca = fenix, es mágica y una reliquia
-	const lamparaAladino = new Cosa(volumen=3,marca="fenix",esMagica=true,esReliquia=true) 
+	const lamparaAladino = new Cosa(volumen=3,marca=fenix,esMagica=true,esReliquia=true) 
 	
 	// TODO: construir/obtener un baúl con volumen máximo = 5 y la escoba dentro
 	const baul = new Baul(volumenMax=5, cosas=#{escoba}) 
 	// TODO: construir/obtener un gabinete mágico con la varita dentro. El precio = 6 (segunda parte)
-	const gabineteMagico = new GabineteMagico(cosas=#{varita}) 
+	const gabineteMagico = new GabineteMagico(cosas=#{varita},precio=6) 
 	// TODO: construir/obtener un armario con cantidad máxima = 2 y la pelota dentro
 	const armario = new Armario(cantMax=2, cosas=#{pelota}) 
 	
@@ -116,45 +116,66 @@ describe "Academia de Magia" {
 
  	test "punto 2.1 utilidad" {
  		// TODO: Guardar la pava en el armario
+ 		armario.guardar(pava)
  		// TODO: Guardar la lámpara en el gabinete mágico
- 		var baulMagico = null // TODO: construir/obtener un baúl mágico con volumen máximo = 12 y con la escoba y la lámpara dentro
+ 		gabineteMagico.guardar(lamparaAladino)
+ 		var baulMagico = new BaulMagico(volumenMax=12,cosas=#{escoba,lamparaAladino}) // TODO: construir/obtener un baúl mágico con volumen máximo = 12 y con la escoba y la lámpara dentro
  		// TODO: Verificar que la utilidad del armario es 1.1
+ 		assert.equals(1.1,armario.utilidad())
  		// TODO: Verificar que la utilidad del ganibete mágico es 3
+ 		assert.equals(3,gabineteMagico.utilidad())
  		// TODO: Verificar que la utilidad del baúl es 4
+ 		assert.equals(4,baul.utilidad())
  		// TODO: Verificar que la utilidad del baúl mágico es 5
+ 		assert.equals(5,baulMagico.utilidad())
  	}
 
-/*
- * 	test "punto 2.2 cosas menos utiles" {
- * 		// TODO: Guardar la pava en el armario
- * 		// TODO: Guardar la lámpara en el gabinete mágico
- * 		// TODO: Verificar que las cosas menos útiles en la academia son la pelota, la varita y la escoba
- * 	}
- */
-/*
- * 	test "punto 2.3 marca de cosa menos util" {
- * 		// TODO: Guardar la pava en el armario
- * 		// TODO: Guardar la lámpara en el gabinete mágico
- * 		// TODO: Verificar que la marca menos útil de la academia es cuchuflito
- * 	}
- */
-/*
- * 	test "punto 2.4 remover cosas menos utiles que no son magicas" {
- * 		// TODO: Guardar la pava en el armario
- * 		// TODO: Guardar la lámpara en el gabinete mágico
- * 		// TODO: Remover las cosas menos útiles de la academia que no son mágicas
- * 		// TODO: Verificar que la varita está guardada en la academia
- * 		// TODO: Verificar que la pelota NO está guardada en la academia
- * 		// TODO: Verificar que la escoba está guardada en la academia
- * 		// TODO: Verificar que la pava está guardada en la academia
- * 		// TODO: Verificar que la lámpara está guardada en la academia
- * 	}
- */
-/*
- * 	test "punto 2.4 imposible remover cosas menos utiles que no son magicas" {
- * 		// TODO: Hacer que la academia tenga solamente el armario y el baúl
- * 		// TODO: Remover las cosas menos útiles de la academia que no son mágicas (NO SE PUEDE!)
- * 	}
- */
+
+ 	test "punto 2.2 cosas menos utiles" {
+		// TODO: Guardar la pava en el armario
+		armario.guardar(pava)
+ 		// TODO: Guardar la lámpara en el gabinete mágico
+ 		gabineteMagico.guardar(lamparaAladino)
+ 		// TODO: Verificar que las cosas menos útiles en la academia son la pelota, la varita y la escoba
+ 		assert.equals(#{pelota,varita,escoba}, academia.cosasMenosUtiles())
+ 	}
+
+
+ 	test "punto 2.3 marca de cosa menos util" {
+ 		// TODO: Guardar la pava en el armario
+ 		armario.guardar(pava)
+ 		// TODO: Guardar la lámpara en el gabinete mágico
+ 		gabineteMagico.guardar(lamparaAladino)
+ 		// TODO: Verificar que la marca menos útil de la academia es cuchuflito
+ 		assert.equals(cuchuflito,academia.marcaMenosUtil())
+ 	}
+
+
+ 	test "punto 2.4 remover cosas menos utiles que no son magicas" {
+ 		// TODO: Guardar la pava en el armario
+ 		armario.guardar(pava)
+ 		// TODO: Guardar la lámpara en el gabinete mágico
+ 		gabineteMagico.guardar(lamparaAladino)
+ 		// TODO: Remover las cosas menos útiles de la academia que no son mágicas
+ 		academia.removerCosasMenosUtilesNoMagicas()
+ 		// TODO: Verificar que la varita está guardada en la academia
+ 		assert.that(academia.tiene(varita))
+ 		// TODO: Verificar que la pelota NO está guardada en la academia
+ 		assert.notThat(academia.tiene(pelota))
+ 		// TODO: Verificar que la escoba está guardada en la academia
+ 		assert.notThat(academia.tiene(escoba))
+ 		// TODO: Verificar que la pava está guardada en la academia
+ 		assert.that(academia.tiene(pava))
+ 		// TODO: Verificar que la lámpara está guardada en la academia
+ 		assert.that(academia.tiene(lamparaAladino))
+ 	}
+
+
+ 	test "punto 2.4 imposible remover cosas menos utiles que no son magicas" {
+ 		// TODO: Hacer que la academia tenga solamente el armario y el baúl
+ 		academia.muebles(#{armario,baul})
+ 		// TODO: Remover las cosas menos útiles de la academia que no son mágicas (NO SE PUEDE!)
+ 		assert.throwsException({academia.removerCosasMenosUtilesNoMagicas()})
+ 	}
 }
 
